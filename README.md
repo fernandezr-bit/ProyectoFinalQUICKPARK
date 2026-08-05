@@ -71,23 +71,6 @@ QuickPark
 
 La estructura puede variar dependiendo de la versión del proyecto.
 
-
-
-- Contribuciones
-
-Si alguien desea colaborar con el proyecto puede hacerlo realizando mejoras o agregando nuevas funcionalidades.
-
-Algunas formas de contribuir son:
-
-1. Descargar una copia del proyecto.
-2. Realizar los cambios o mejoras que considere necesarias.
-3. Probar que todo funcione correctamente.
-4. Compartir los cambios para que puedan ser revisados e incorporados al proyecto.
-
-También son bienvenidas las sugerencias para corregir errores o mejorar el funcionamiento de la aplicación.
-
-
-
 - Licencia
 
 Este proyecto fue desarrollado únicamente con fines educativos.
@@ -98,29 +81,10 @@ Puede utilizarse como referencia para aprender, modificarlo o adaptarlo a otros 
 
 - Recursos visuales
 
-Se recomienda agregar imágenes de las principales pantallas de la aplicación, por ejemplo:
-
 * Pantalla de inicio.
 * Inicio de sesión.
 * Registro de usuarios.
 * Vista principal del sistema.
-
-
-
-- Badges
-
-Tecnologías utilizadas en el proyecto.
-
-md
-![HTML](https://img.shields.io/badge/HTML-E34F26)
-
-![CSS](https://img.shields.io/badge/CSS-1572B6)
-
-![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E)
-
-![PHP](https://img.shields.io/badge/PHP-777BB4)
-
-![MySQL](https://img.shields.io/badge/MySQL-4479A1)
 
 
 
@@ -144,26 +108,6 @@ if (usuario == "" || contraseña == "") {
     alert("Debe completar todos los campos.");
 }
 
-
-
-
-- Preguntas frecuentes
-
--- ¿Qué necesito para ejecutar el proyecto?
-
-Tener instalado XAMPP o cualquier servidor compatible con PHP y MySQL.
-
--- ¿Es necesario crear la base de datos?
-
-Sí. El sistema utiliza MySQL para almacenar la información.
-
--- ¿Funciona sin Internet?
-
-Sí. Al ejecutarse en un servidor local no requiere conexión a Internet.
-
--- ¿Se puede modificar?
-
-Sí. El proyecto puede utilizarse como base para agregar nuevas funcionalidades o adaptarlo a otras necesidades.
 
 
 
