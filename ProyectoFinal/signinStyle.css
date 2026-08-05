@@ -1,0 +1,127 @@
+@font-face {/* Define la fuente personalizada */
+    font-family: 'montserratFont'; /* Nombre con el que la llamarás en CSS */
+    src: url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@1,100..900&display=swap');
+}
+
+body {
+    min-height: 100vh; /* Asegura que el cuerpo ocupe al menos toda la altura de la ventana */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 20px;
+    background-image: url('img/fondo.png');
+    background-size: cover;
+    background-position: center;
+}
+
+.tarjeta {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    max-width: 1650px;
+    min-height: auto;
+    background-color: #fff;
+    border: 1px solid #d1d5db;
+    border-radius: 35px;
+    box-shadow: 0 12px 30px rgba(18, 8, 22, 0.08);
+    padding: 50px;
+}
+
+@media (min-width: 768px) { /* Estilos para pantallas medianas y grandes */
+    .tarjeta {
+        height: 750px;
+    }
+}
+
+@media (max-width: 767px) { /* Estilos para pantallas pequeñas */
+    .tarjeta {
+        height: auto;
+        padding: 15px;
+    }
+}
+
+.tarjeta img {
+    width: 100%;
+    max-width: 700px; 
+    height: auto; /* Mantiene la proporción */
+    border-radius: 40px; /* Radio del borde reducido a 10px */
+    object-fit: cover; /* Asegura que la imagen cubra el área sin distorsionarse */
+    margin-left: auto;
+}
+
+.btnEnviar {
+    width: 100%;
+    padding: 12px;
+    background-color: #6645ac;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btnEnviar:hover {/* Efecto hover para el botón */
+    background-color: #26176a;
+    box-shadow: 0 4px 8px rgba(102, 69, 172, 0.5);
+}
+
+@media (max-width: 768px) { /* Estilos para pantallas pequeñas (resposvie) */
+    .tarjeta {
+        padding: 20px;
+    }
+}
+
+.bienvenida {
+    font-size: 30px;
+    font-weight: bold;
+    font-family: montserratFont, sans-serif; /* Usa la fuente personalizada y si falla al cargar usa TimesNew Roman*/
+    color: #6645ac;
+    margin-bottom: 15px;
+}
+
+.texto {
+    font-family: montserratFont, sans-serif; 
+    font-size: 18px;
+    color: grey;
+    margin-bottom: 20px;
+}
+
+.login-texto {
+    font-family: montserratFont, sans-serif; 
+    font-size: 15px;
+    color: White;
+}
+
+.recuerda-texto {
+    font-family: montserratFont, sans-serif; 
+    font-size: 13px;
+    color: grey;
+    margin-top: 10px;
+}
+
+.img-fluid {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 16px;
+}
+
+.btnLogIn {
+    width: 25%;
+    padding: 12px;
+    background-color: #372781;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btnLogIn:hover {/* Efecto hover para el botón */
+    background-color: #26176a;
+    box-shadow: 0 4px 8px rgba(102, 69, 172, 0.5);
+}

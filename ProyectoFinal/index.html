@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <!-- Define el conjunto de caracteres (UTF-8 permite ñ y acentos) -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Hace que la página sea responsive (se adapta a móviles y tablets) -->
+    <title>QuickPark</title>
+
+    <!-- Bootstrap 5: Framework CSS que proporciona estilos y componentes listos para usar -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- CSS personalizado para el modal de registrarse (Sign In) -->
+    <link rel="stylesheet" href="signinStyle.css">
+    <!-- CSS personalizado para el modal de inicio de sesión (Login) -->
+    <link rel="stylesheet" href="loginStyle.css">
+
+    <style>
+        /* ESTILOS PERSONALIZADOS PARA LA PÁGINA */
+        
+        html {
+            scroll-behavior: smooth; /* Hace que el scroll sea suave al hacer click en enlaces internos */
+            scroll-snap-type: y mandatory; /* Crea "puntos de parada" al scrollear verticalmente */
+        }
+
+        body {
+            display: block; /* Restablece el comportamiento normal de la página */
+            padding-top: 90px; /* Deja espacio en la parte superior para la navbar fija */
+            margin: 0; /* Elimina márgenes por defecto del navegador */
+            overflow-x: hidden; /* Evita scroll horizontal si la sección usa 100% */
+        }
+
+        main {
+            width: 100%; /* Hace que el contenido principal use todo el ancho disponible */
+        }
+
+        /* Estilos para la barra de navegación (navbar) */
+        .navbar {
+            backdrop-filter: blur(10px); /* Efecto desenfoque detrás de la navbar */
+            background: rgba(255, 255, 255, .85); /* Fondo semi-transparente blanco */
+        }
+
+        /* Estilos para los modales (ventanas emergentes) */
+        .modal {
+            background: transparent; /* Fondo transparente del modal */
+        }
+
+        /* Contenido del modal */
+        .modal-content {
+            background-image: url('img/fondo.png'); /* Imagen de fondo */
+            background-position: center; /* Centra la imagen */
+            background-size: cover; /* La imagen cubre todo el espacio */
+            background-repeat: no-repeat; /* No repite la imagen */
+            border: none; /* Sin bordes */
+            box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .2); /* Sombra ligera */
+        }
+
+        /* Estilos para cada sección principal (home, funcionamiento, etc.) */
+        .seccion {
+            width: 100%; /* Asegura que la sección ocupe todo el ancho del contenedor principal */
+            min-width: 100%; /* Evita que se reduzca por algún contenedor padre */
+            padding: 120px 0; /* Espacio interno arriba/abajo, los lados quedan en el interior del container-fluid */
+            display: flex; /* Usa flexbox para centrar contenido */
+            box-sizing: border-box; /* El padding no suma a la altura total */
+            scroll-snap-align: center; /* Centra cada sección en la pantalla al hacer scroll */
+
+            animation: aparecer 0.8s ease both; /* Aplica una animación estándar que termina en su posición */
+        }
+
+        /* Colores de fondo para cada sección */
+        #home {
+            min-height: 100vh; /* Ocupa al menos toda la pantalla */
+            width: 100%; /* Ocupa todo el ancho */
+            background: #0f172a;
+            color: white;
+        }
+
+        #funcionamiento {
+            min-height: 100vh; /* Ocupa al menos toda la pantalla */
+            width: 100%; /* Ocupa todo el ancho */
+            background: #1e293b; 
+            color: white;
+        }
+
+        #objetivo {
+            min-height: 100vh; /* Ocupa al menos toda la pantalla */
+            width: 100%; /* Ocupa todo el ancho */
+            background: #334155; 
+            color: white;
+        }
+
+        #integrantes {
+            min-height: 100vh; /* Ocupa al menos toda la pantalla */
+            width: 100%; /* Ocupa todo el ancho */
+            background: #475569; 
+            color: white;
+        }
+
+        #contacto {
+            min-height: 100vh; /* Ocupa al menos toda la pantalla */
+            width: 100%; /* Ocupa todo el ancho */
+            background: #64748b;
+            color: white;
+        }
+
+        /* Animación que hace que las secciones "aparezcan" suavemente */
+        @keyframes aparecer {
+            from {
+                opacity: 0; /* Invisible */
+                transform: translateY(100px); /* Empieza 100px más abajo */
+            }
+
+            to {
+                opacity: 1; /* Completamente visible */
+                transform: translateY(0); /* En su posición normal */
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- BARRA DE NAVEGACIÓN (NAVBAR) -->
+    <nav class="navbar navbar-expand-lg fixed-top shadow">
+        <!-- 
+            navbar: clase de Bootstrap para crear una barra de navegación
+            navbar-expand-lg: se expande en pantallas grandes (lg = large), en móvil se colapsa
+            fixed-top: la navbar queda fija en la parte superior
+            shadow: añade una sombra debajo
+        -->
+        <div class="container-fluid">
+            <!-- container-fluid: ocupa todo el ancho disponible -->
+            <a class="navbar-brand">
+                <!-- navbar-brand: parte del logo/marca en la navbar -->
+                <img src="img/quickpark.png" alt="quickpark" width="150" style="margin-bottom: 5px;">
+            </a>
+
+            <!-- Botón para expandir/colapsar menú en móviles -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown">
+                <!-- 
+                    navbar-toggler: botón hamburguesa (3 líneas)
+                    data-bs-toggle="collapse": indica que este botón activa un colapso (colapsar: mostrar/ocultar contenido)
+                    data-bs-target="#navbarNavDropdown": especifica qué elemento se colapsa
+                -->
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Menú que se colapsa en móviles -->
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <!-- 
+                    collapse: este contenido se puede colapsar
+                    navbar-collapse: hace parte del menú de la navbar
+                    id="navbarNavDropdown": identificador único para referenciar este elemento
+                -->
+                <ul class="navbar-nav">
+                    <!-- navbar-nav: lista de navegación de Bootstrap -->
+                    <li class="nav-item"><a class="nav-link" href="#home">Inicio</a></li>
+                    <!-- 
+                        nav-item: elemento de la lista
+                        nav-link: estilos para enlaces de navegación
+                        href="#home": vincula a la sección con id="home"
+                    -->
+                    <li class="nav-item"><a class="nav-link" href="#funcionamiento">Funcionamiento</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#objetivo">Objetivo</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#integrantes">Integrantes</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contacto">Contacto</a></li>
+                </ul>
+
+                <!-- Botón Login alineado a la derecha -->
+                <div class="ms-auto nav-item">
+                                        <!-- ms-auto: margen automático a la izquierda (empuja el contenido a la derecha) -->
+                    <ul class="navbar-nav">
+                    
+                    <li class="nav-item"><a class="nav-link" href="perfil.html"><img src="img/perfil.png" style="width: 40px; height: 40px; margin:3px"></a></li>
+                    <button class="btnNavbar" data-bs-toggle="modal" data-bs-target="#exampleModalToggle" >
+                        <!-- 
+                            btn: clase de Bootstrap para botones
+                            btn-primary: botón de color azul (primario)
+                            btnNavbar: clase personalizada en loginStyle.css
+                            data-bs-toggle="modal": indica que este botón abre un modal
+                            data-bs-target="#exampleModalToggle": especifica qué modal abrir (por su id)
+                        -->
+                        Login
+                    </button>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- MODAL DE LOGIN (INICIO DE SESIÓN) -->
+    <div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel"
+        tabindex="-1">
+        <!-- 
+            modal: contenedor del modal (ventana emergente)
+            fade: efecto de desvanecimiento al abrir/cerrar
+            id="exampleModalToggle": identificador único
+            aria-hidden="true": accesibilidad (indica que está oculto)
+            aria-labelledby: vincula con el título del modal
+            tabindex="-1": evita que el modal sea seleccionable por tabulación
+        -->
+        <div class="modal-dialog modal-dialog-centered modal-xl">
+            <!-- 
+                modal-dialog: contenedor del diálogo
+                modal-dialog-centered: centra el modal en la pantalla
+                modal-xl: tamaño extra grande (xl = extra large)
+                Otros tamaños: modal-sm (pequeño), modal-lg (grande), modal-xl (extra grande)
+            -->
+            <div class="modal-content">
+                <!-- modal-content: contenido principal del modal -->
+
+                <!-- CABECERA DEL MODAL -->
+                <div class="modal-header">
+                    <!-- modal-header: sección superior con título y botón cerrar -->
+                    <h1 class="modal-title textoInicioModal" id="exampleModalToggleLabel" >
+                        <!-- 
+                            modal-title: clase para el título
+                            textoInicioModal: clase personalizada (definida en loginStyle.css)
+                        -->
+                        Inicio de Sesión
+                    </h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        <!-- 
+                            btn-close: botón para cerrar (X)
+                            data-bs-dismiss="modal": cierra el modal al hacer click
+                        -->
+                    </button>
+                </div>
+                <!-- BODY -->
+                <div class="modal-body">
+                    <div class="tarjeta">
+                        <div class="w-100">
+                            <div class="row align-items-center h-100">
+                                <!-- IMAGEN -->
+                                <div class="col-12 col-md-6 mb-4 mb-md-0">
+                                    <img src="img/fondologin.png" class="img-fluid d-block" alt="imagen">
+                                </div>
+                                <!-- FORM -->
+                                <div class="col-12 col-md-6">
+                                    <h1 class="bienvenida">
+                                        ¡Qué bueno verte de vuelta!
+                                    </h1>
+                                    <h3 class="texto">
+                                        Ingresá tus datos para acceder a tu cuenta
+                                        y continuar donde lo dejaste.
+                                    </h3>
+                                    <form action="login.php" method="post">
+                                        <!-- USUARIO -->
+                                        <div class="input-group mb-3">
+                                            <span class="input-group-text">
+                                                Usuario:
+                                            </span>
+                                            <input type="text" class="form-control" placeholder="Escriba su usuario"
+                                                name="usuario">
+                                        </div>
+                                        <!-- GMAIL -->
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control" placeholder="Escriba su Gmail"
+                                                name="dominio">
+                                            <span class="input-group-text">
+                                                @gmail.com
+                                            </span>
+                                        </div>
+                                        <!-- PASSWORD -->
+                                        <div class="input-group mb-3">
+                                            <input type="password" class="form-control" placeholder="Contraseña"
+                                                name="password">
+                                            <button class="btn btn-outline-secondary" type="button"
+                                                onclick="this.previousElementSibling.type = this.previousElementSibling.type === 'password' ? 'text' : 'password'">
+                                                🔍
+                                            </button>
+                                        </div>
+                                        <!-- BOTON -->
+                                        <button type="submit" class="btnEnviar">
+                                            Enviar
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PIE DEL MODAL -->
+                <div class="modal-footer">
+                    <!-- modal-footer: sección inferior del modal con acciones -->
+                    <p class="signin-texto">¿No tienes una cuenta aún? ¡Créala!</p>
+                    <!-- signin-texto: clase personalizada para estilo del texto -->
+                    <button class="btnSignIn" data-bs-target="#exampleModalToggle2"
+                        data-bs-toggle="modal">
+                        <!-- 
+                            btnSignIn: clase personalizada (NO necesita btn-primary)
+                            data-bs-target: especifica qué modal abrir (el de registro)
+                            data-bs-toggle: activa la funcionalidad de modal
+                        -->
+                        Sign In
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL DE REGISTRO (SIGN IN) -->
+    <div class="modal fade" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2"
+        tabindex="-1">
+        <!-- 
+            Similar al modal de login, pero para registrarse
+            id="exampleModalToggle2": identificador único para este modal
+            fade: efecto de desvanecimiento
+        -->
+        <div class="modal-dialog modal-dialog-centered modal-xl">
+            <!-- modal-xl: tamaño extra grande, igual que el modal de login -->
+            <div class="modal-content">
+
+                <!-- CABECERA DEL MODAL DE REGISTRO -->
+                <div class="modal-header">
+                    <h1 class="modal-title textoInicioModal" id="exampleModalToggleLabel2">
+                        <!-- 
+                            modal-title: clase para título de modal
+                            textoInicioModal: clase personalizada para estilo blanco grande
+                        -->
+                        Registrarse
+                    </h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        <!-- btn-close: botón X para cerrar -->
+                    </button>
+                </div>
+
+                <!-- CUERPO DEL MODAL DE REGISTRO -->
+                <div class="modal-body">
+                    <div class="tarjeta">
+                        <!-- Misma estructura que el modal de login -->
+                        <div class="w-100">
+                            <div class="row align-items-center h-100">
+
+                                <!-- IMAGEN IZQUIERDA (misma en ambos modales) -->
+                                <div class="col-12 col-md-6 mb-4 mb-md-0">
+                                    <img src="img/fondologin.png" class="img-fluid d-block" alt="imagen">
+                                </div>
+
+                                <!-- FORMULARIO DE REGISTRO DERECHA -->
+                                <div class="col-12 col-md-6">
+                                    <h1 class="bienvenida">
+                                        ¡Sumate a la experiencia!
+                                    </h1>
+                                    <h3 class="texto">
+                                        Completá tus datos para crear tu cuenta
+                                        y empezar ahora.
+                                    </h3>
+                                    <form action="login.php" method="post">
+                                        <!-- Formulario con más campos que el login -->
+
+                                        <!-- CAMPO MATRÍCULA -->
+                                        <div class="input-group mb-3">
+                                            <!-- input-group: agrupa input con etiquetas -->
+                                            <span class="input-group-text">
+                                                Matrícula
+                                            </span>
+                                            <input type="text" class="form-control" placeholder="Ej.: ABC1234"
+                                                name="matricula">
+                                            <!-- name="matricula": se envía con este nombre al servidor -->
+                                        </div>
+
+                                        <!-- CAMPO CÉDULA -->
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control" placeholder="Ej.: 12345678"
+                                                name="cedula">
+                                            <!-- La etiqueta va DESPUÉS del input (orden inverso) -->
+                                            <span class="input-group-text">
+                                                Cédula
+                                            </span>
+                                        </div>
+
+                                        <!-- CAMPO USUARIO -->
+                                        <div class="input-group mb-3">
+                                            <span class="input-group-text">
+                                                Usuario
+                                            </span>
+                                            <input type="text" class="form-control" placeholder="Escriba su usuario"
+                                                name="usuario">
+                                        </div>
+
+                                        <!-- CAMPO GMAIL -->
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control" placeholder="Escriba su Gmail"
+                                                name="dominio">
+                                            <span class="input-group-text">
+                                                @gmail.com
+                                            </span>
+                                        </div>
+
+                                        <!-- CAMPO CONTRASEÑA -->
+                                        <div class="input-group mb-3">
+                                            <span class="input-group-text">
+                                                Contraseña
+                                            </span>
+                                            <input type="password" class="form-control" placeholder="Contraseña"
+                                                name="password">
+                                            <button class="btn btn-outline-secondary" type="button"
+                                                onclick="this.previousElementSibling.type = this.previousElementSibling.type === 'password' ? 'text' : 'password'">
+                                                <!-- Botón para mostrar/ocultar contraseña (mismo que en login) -->
+                                                🔍
+                                            </button>
+                                        </div>
+
+                                        <!-- TEXTO DE ADVERTENCIA -->
+                                        <h5 class="mb-3 recuerda-texto">
+                                            <!-- 
+                                                mb-3: margen inferior 3 unidades
+                                                recuerda-texto: clase personalizada para estilo gris
+                                            -->
+                                            * Recuerda: Nunca compartiremos tu información personal
+                                        </h5>
+
+                                        <!-- BOTÓN ENVIAR DEL REGISTRO -->
+                                        <button type="submit" class="btnEnviar">
+                                            <!-- type="submit": envía el formulario al hacer click -->
+                                            Enviar
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PIE DEL MODAL DE REGISTRO -->
+                <div class="modal-footer">
+                    <p class="login-texto">¿Ya tienes una cuenta? ¡Inicia sesión!</p>
+                    <!-- login-texto: clase personalizada para estilo del texto -->
+                    <button class="btnLogIn" data-bs-target="#exampleModalToggle"
+                        data-bs-toggle="modal">
+                        <!-- 
+                            btnLogIn: clase personalizada (NO necesita btn-primary)
+                            data-bs-target="#exampleModalToggle": abre el modal de login
+                        -->
+                        Login
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECCIÓN PRINCIPAL (CONTENIDO DE LA PÁGINA) -->
+    <main>
+        <!-- main: elemento semántico que contiene el contenido principal de la página -->
+
+        <!-- SECCIÓN 1: HOME / INICIO -->
+        <section id="home" class="seccion">
+            <!-- 
+                section: elemento semántico para una sección
+                id="home": identificador único (vinculado desde navbar)
+                class="seccion": clase personalizada que define estilo y animaciones
+            -->
+            <div class="container-fluid text-center">
+                <!-- 
+                    container-fluid: ocupa todo el ancho disponible
+                    text-center: centra todo el texto
+                -->
+                <h1>¡¡¡Bienvenido a QUICK PARK!!!</h1>
+                <p class="lead">
+                    <!-- lead: clase Bootstrap que hace el párrafo más grande y destacado -->
+                    Encontrá estacionamiento de forma rápida, cómoda y organizada.
+                </p>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 2: FUNCIONAMIENTO -->
+        <section id="funcionamiento" class="seccion">
+            <!-- id="funcionamiento": identificador para el enlace de la navbar -->
+            <div class="container-fluid">
+                <!-- container-fluid: ancho completo en lugar del ancho limitado de container -->
+                <h2>Funcionamiento de la WEB</h2>
+                <p>
+                    QUICK PARK es una plataforma creada para ayudar a los docentes del Liceo Logosófico
+                    a encontrar estacionamiento de una forma más rápida, cómoda y organizada.
+                </p>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 3: OBJETIVO -->
+        <section id="objetivo" class="seccion">
+            <!-- id="objetivo": identificador para el enlace de la navbar -->
+            <div class="container-fluid">
+                <!-- container-fluid: ancho completo para que el fondo no parezca estrecho -->
+                <h2>Objetivo del Proyecto</h2>
+                <p>
+                    Optimizar la búsqueda de estacionamiento mediante un sistema colaborativo
+                    entre los usuarios.
+                </p>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 4: INTEGRANTES -->
+        <section id="integrantes" class="seccion">
+            <!-- id="integrantes": identificador para el enlace de la navbar -->
+            <div class="container-fluid">
+                <!-- container-fluid: ancho completo para que la sección ocupe toda la pantalla -->
+                <h1 class="text-center mb-5">Integrantes del Proyecto</h1>
+                <!-- 
+                    text-center: centra el texto
+                    mb-5: margen inferior 5 unidades (separación grande)
+                -->
+
+                <!-- ACORDEÓN DE INTEGRANTES -->
+                <div class="accordion" id="accordionIntegrantes">
+                    <!-- 
+                        accordion: componente Bootstrap que permite expandir/contraer items
+                        id="accordionIntegrantes": identificador único para el acordeón
+                    -->
+
+                    <!-- ITEM 1: RODRIGO -->
+                    <div class="accordion-item">
+                        <!-- accordion-item: cada item expandible del acordeón -->
+                        <h2 class="accordion-header">
+                            <!-- accordion-header: encabezado del item -->
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#rodrigo">
+                                <!-- 
+                                    accordion-button: botón clickeable
+                                    collapsed: comienza contraído (no expandido)
+                                    data-bs-toggle="collapse": activa la función de colapso
+                                    data-bs-target="#rodrigo": especifica qué contenido expandir/contraer
+                                -->
+                                Rodrigo Fernandez
+                            </button>
+                        </h2>
+                        <div id="rodrigo" class="accordion-collapse collapse" data-bs-parent="#accordionIntegrantes">
+                            <!-- 
+                                accordion-collapse: contenido que se colapsa/expande
+                                collapse: comienza colapsado
+                                data-bs-parent: vincula a su acordeón padre
+                                (solo una sección expandida a la vez)
+                            -->
+                            <div class="accordion-body">Especialista en programación e investigación.</div>
+                        </div>
+                    </div>
+
+                    <!-- ITEM 2: DAVID -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#david">
+                                David Astor
+                            </button>
+                        </h2>
+                        <div id="david" class="accordion-collapse collapse" data-bs-parent="#accordionIntegrantes">
+                            <div class="accordion-body">Orientado al análisis y planificación.</div>
+                        </div>
+                    </div>
+
+                    <!-- ITEM 3: ZOE -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#zoe">
+                                Zoe Lucero
+                            </button>
+                        </h2>
+                        <div id="zoe" class="accordion-collapse collapse" data-bs-parent="#accordionIntegrantes">
+                            <div class="accordion-body">Diseño, organización y programación.</div>
+                        </div>
+                    </div>
+
+                    <!-- ITEM 4: MAITE -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#maite">
+                                Maite Silva
+                            </button>
+                        </h2>
+                        <div id="maite" class="accordion-collapse collapse" data-bs-parent="#accordionIntegrantes">
+                            <div class="accordion-body">Creatividad, investigación y resolución de problemas.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 5: CONTACTO -->
+        <section id="contacto" class="seccion">
+            <!-- id="contacto": identificador para el enlace de la navbar -->
+            <div class="container-fluid">
+                <!-- container-fluid: ancho completo para que el fondo se extienda sin margen -->
+                <h2>Contacto y Soporte</h2>
+                <p>Email: primecode.mzrd@gmail.com</p>
+                <!-- Email de contacto del equipo -->
+                <p>Desarrollado por PrimeCode</p>
+                <!-- Crédito del equipo desarrollador -->
+            </div>
+        </section>
+
+    </main>
+    <!-- Fin del contenido principal -->
+
+    <!-- SCRIPT DE BOOTSTRAP (funcionalidad interactiva) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- 
+        Script JS de Bootstrap que proporciona:
+        - Funcionalidad de modales (abrir/cerrar ventanas emergentes)
+        - Acordeones (expandir/contraer items)
+        - Navbars responsive (menú que se colapsa en móviles)
+        - Otros componentes interactivos
+    -->
+</body>
+
+</html>
